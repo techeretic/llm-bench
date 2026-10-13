@@ -1,10 +1,9 @@
 # llm-bench
 
-Scripts for benchmarking a self-hosted LLM served through an OpenAI-compatible endpoint on
-`127.0.0.1:8000`, either vLLM or llama.cpp's `llama-server`. They answer two questions about a
-model and serving configuration: **how fast is it under real workloads** (long-context coding
-agents, several agents at once), and **how good is it for coding, following instructions and
-writing technical specs**.
+Scripts for benchmarking a self-hosted LLM served through an OpenAI-compatible endpoint, either
+vLLM or llama.cpp's `llama-server`. They answer two questions about a model and serving
+configuration: **how fast is it under real workloads** (long-context coding agents, several agents
+at once), and **how good is it for coding, following instructions and writing technical specs**.
 
 Written to compare a BF16 + MTP (multi-token prediction speculative decoding) deployment of
 Qwen3.8-27B against Unsloth's NVFP4 and GGUF quants, but nothing is specific to that model apart
