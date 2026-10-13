@@ -124,6 +124,7 @@ thinking runs can each grow to 32K tokens and oversubscribe the KV cache).
   `vllm:num_requests_running` before starting and note it in the results.
 - **Building llama.cpp with CUDA** needs `nvcc` on `PATH` (e.g. `export PATH=/usr/local/cuda/bin:$PATH`),
   or cmake fails with "No CMAKE_CUDA_COMPILER".
+- **Make serve scripts executable** (`chmod +x`) or launch them with `bash`; a permission error kills the launch instantly and is easy to miss if you're only polling for the port.
 - **EvalPlus needs every problem** in a samples file. A smoke test with `LIMIT` can't be scored
   for humaneval/mbpp.
 
@@ -138,6 +139,8 @@ thinking runs can each grow to 32K tokens and oversubscribe the KV cache).
 | `specs.py` | Spec-writing prompts and their rule checks |
 | `score.py` | Grading: EvalPlus, IFEval, LCB, spec checks → per-item `scores.json` |
 | `blind.py` | Builds randomized X/Y spec pairs for blind judging |
+| `compare.py` | Paired comparison of two labels: pass rates, Wilson 95% CIs, exact McNemar p, token usage, wall time, concurrency rows |
+| `compare_charts.py` | matplotlib charts from `compare.py` output plus the unblinded spec verdicts |
 | `quality.py` | 12-task + needle quick check |
 | `longctx_charts.py` | matplotlib charts from `longctx_bench.py` outputs (edit the `VARIANTS` paths) |
 | `run-all.sh` | Concurrency sweep → generation → scoring for one label |
