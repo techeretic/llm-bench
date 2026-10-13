@@ -2,7 +2,9 @@
 import glob, http.client, json, random, re, sys, time, uuid
 
 import os
-HOST, PORT, MODEL = "127.0.0.1", 8000, "qwen3.8-27b"
+HOST = os.environ.get("LLM_HOST", "127.0.0.1")
+PORT = int(os.environ.get("LLM_PORT", "8000"))
+MODEL = os.environ.get("LLM_MODEL", "qwen3.8-27b")
 LLAMA = os.environ.get("BACKEND") == "llama"
 GEN = 1500
 

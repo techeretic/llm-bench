@@ -1,7 +1,9 @@
 """Small quality probe: coding tasks graded by executing asserts + long-context needle retrieval."""
-import glob, http.client, json, random, re, subprocess, sys, tempfile, uuid
+import glob, http.client, json, os, random, re, subprocess, sys, tempfile, uuid
 
-HOST, PORT, MODEL = "127.0.0.1", int(sys.argv[2]) if len(sys.argv) > 2 else 8000, "qwen3.8-27b"
+HOST = os.environ.get("LLM_HOST", "127.0.0.1")
+PORT = int(os.environ.get("LLM_PORT", "8000"))
+MODEL = os.environ.get("LLM_MODEL", "qwen3.8-27b")
 
 def chat(prompt, max_tokens=2048):
     c = http.client.HTTPConnection(HOST, PORT, timeout=900)

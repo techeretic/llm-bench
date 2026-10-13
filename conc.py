@@ -2,11 +2,15 @@
 
 usage: conc.py <srcdir> 1,4,16,64  -> JSON line per level
 """
-import asyncio, glob, json, random, statistics, sys, time, uuid
+import asyncio, glob, json, os, random, statistics, sys, time, uuid
 
 import httpx
 
-BASE, MODEL, GEN, PROMPT_CHARS = "http://127.0.0.1:8000/v1", "qwen3.8-27b", 1024, 26000
+HOST = os.environ.get("LLM_HOST", "127.0.0.1")
+PORT = int(os.environ.get("LLM_PORT", "8000"))
+MODEL = os.environ.get("LLM_MODEL", "qwen3.8-27b")
+BASE = f"http://{HOST}:{PORT}/v1"
+GEN, PROMPT_CHARS = 1024, 26000
 
 files = sorted(glob.glob(sys.argv[1] + "/**/*.py", recursive=True))
 corpus = [open(f, errors="ignore").read() for f in files]

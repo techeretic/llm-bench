@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage: run-all.sh <label>
-# Runs the concurrency sweep, all quality generations, then scoring, against the server on :8000.
+# Runs the concurrency sweep, all quality generations, then scoring, against the server at $LLM_HOST:$LLM_PORT.
 # CORPUS: directory of .py files used as prompt filler (we used an installed vllm package dir).
 L=$1; cd ~/evals; mkdir -p out/$L
 SRC=${CORPUS:?set CORPUS to a directory of .py source files}

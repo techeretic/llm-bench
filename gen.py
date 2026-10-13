@@ -7,8 +7,10 @@ import asyncio, base64, json, os, pickle, sys, time, zlib
 
 import httpx
 
-BASE = os.environ.get("BASE", "http://127.0.0.1:8000/v1")
-MODEL = "qwen3.8-27b"
+HOST = os.environ.get("LLM_HOST", "127.0.0.1")
+PORT = int(os.environ.get("LLM_PORT", "8000"))
+MODEL = os.environ.get("LLM_MODEL", "qwen3.8-27b")
+BASE = f"http://{HOST}:{PORT}/v1"
 CONC = int(os.environ.get("CONC", "64"))
 ROOT = os.path.expanduser("~/evals")
 sys.path.insert(0, os.path.join(ROOT, "harness"))

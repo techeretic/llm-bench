@@ -7,7 +7,7 @@ at once), and **how good is it for coding, following instructions and writing te
 
 Written to compare a BF16 + MTP (multi-token prediction speculative decoding) deployment of
 Qwen3.8-27B against Unsloth's NVFP4 and GGUF quants, but nothing is specific to that model apart
-from the served model name and the serve scripts.
+from the default model name and the serve scripts.
 
 ## Principles
 
@@ -71,13 +71,25 @@ hf download google/IFEval --repo-type dataset --local-dir data/ifeval
 mkdir -p harness && cp <this repo>/*.py harness/ && cp <this repo>/run-all.sh .
 ```
 
-The served model name is hard-coded as `qwen3.8-27b` in the Python scripts. Change `MODEL` if
-yours differs.
+## Configuration
+
+Every script, including the serve scripts, reads the endpoint and model name from the environment:
+
+| Variable | Meaning | Default |
+|---|---|---|
+| `LLM_HOST` | Host of the OpenAI-compatible server | `127.0.0.1` |
+| `LLM_PORT` | Its port | `8000` |
+| `LLM_MODEL` | Served model name sent in requests (and set by the serve scripts) | `qwen3.8-27b` |
+
+The bench and the server it measures should normally run on the same machine, so network latency
+doesn't end up in the TTFT numbers.
 
 ## Running
 
 ```bash
-# full suite against whatever is on :8000, results under out/<label>/
+export LLM_HOST=127.0.0.1 LLM_PORT=8000 LLM_MODEL=my-model
+
+# full suite, results under out/<label>/
 CORPUS=/path/to/some/python/package nohup ~/evals/run-all.sh baseline > ~/evals/run-baseline.log 2>&1 &
 
 # long-context speed only
